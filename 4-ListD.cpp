@@ -14,11 +14,11 @@ template<typename T>
 void ListD<T>::Insert(T item, int pos)
 {
  //new node goes between these two nodes
- doubleNode* insertPtA = FindPosition(pos);  
- doubleNode* insertPtB = insertPtA->next; 
+ doubleNode<T>* insertPtA = FindPosition(pos);  
+ doubleNode<T>* insertPtB = insertPtA->next; 
 
  //create new node and set its values
- doubleNode* tmp = new doubleNode; 
+ doubleNode<T>* tmp = new doubleNode<T>; 
  tmp->prev = insertPtA;
  tmp->item = item;
  tmp->next = insertPtB;
@@ -33,9 +33,9 @@ void ListD<T>::Insert(T item, int pos)
 template<typename T>
 void ListD<T>::Delete(int pos)
 {
- doubleNode* deletePt = FindPosition(pos);
- doubleNode* deletePtPrev = deletePt->prev;
- doubleNode* deletePtNext = deletePt->next;
+ doubleNode<T>* deletePt = FindPosition(pos);
+ doubleNode<T>* deletePtPrev = deletePt->prev;
+ doubleNode<T>* deletePtNext = deletePt->next;
 
  deletePtPrev->next = deletePtNext;
  deletePtNext->prev = deletePtPrev;
@@ -47,7 +47,7 @@ void ListD<T>::Delete(int pos)
 template<typename T>
 void ListD<T>::PrintForward()
 {
- doubleNode*  cur = head->next;
+ doubleNode<T>*  cur = head;
 
  int i = 0;
  while (i < length)
@@ -61,7 +61,7 @@ void ListD<T>::PrintForward()
 template<typename T>
 void ListD<T>::PrintBackward()
 {
- doubleNode*  cur = tail->prev;
+ doubleNode<T>*  cur = tail->prev;
 
  int i = 0;
  while (i < length)
@@ -78,8 +78,8 @@ void ListD<T>::InitializeVars()
  length = 0;
  
 //create dummy nodes;
- head = new doubleNode;
- tail = new doubleNode;
+ head = new doubleNode<T>;
+ tail = new doubleNode<T>;
 
  //set values for head dummy node;
  head->prev = NULL;
@@ -95,14 +95,16 @@ void ListD<T>::InitializeVars()
 template<typename T>
 doubleNode<T>* ListD<T>::FindPosition(int pos)
 {
- doubleNode<T>* cur = head;
- int i = 0;  //begin at the dummy node
-  while (i < pos - 1)
-  {
-   cur = cur->next;
-   i++;
-  }
- return cur;
+    doubleNode<T>* temp = head;
+    int count = 0;
+
+    while (count <= pos -1) 
+    {
+        pos++;
+        temp = temp->next;
+        count ++;
+    }
+    return (temp);
 }
 
 template<typename T>
@@ -118,7 +120,7 @@ ListD<T>::~ListD()
 }
 
 template<typename T>
-ListD<T>::ListD(ListD<T>* lst)
+ListD<T>::ListD(const ListD<T>* lst)
 {
  InitializeVars();
  //returns a pointer to the first node, which is what we want here
@@ -129,4 +131,15 @@ ListD<T>::ListD(ListD<T>* lst)
   Insert(cur->item,i);
   cur = cur->next;
  }
+}
+
+template<typename T>
+void ListD<T>::Sort()
+{   
+}
+
+template<typename T>
+int ListD<T>::DeleteAll()
+{
+
 }
