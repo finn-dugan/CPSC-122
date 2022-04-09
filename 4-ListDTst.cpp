@@ -1,26 +1,39 @@
 #include <iostream>
+#include <climits>
 using namespace std;
 
 #include "4-ListD.h"
+#include "4-ListD.cpp"
 
-//All tests are separated by function
 void TestInsert();
 void TestCopyConstructor();
+void TestDeleteAll(int item);
+void TestPrintForward();
+void TestPrintBackward();
+void TestSort();
+void TestDelete();
+
+//All tests are separated by function
 
 int main()
 {
  TestInsert();
- //TestCopyConstructor();
+ TestCopyConstructor();
+ TestPrintBackward();
+ TestDeleteAll(3);
+ TestSort();
+
+ return 0;
 }
 
 
 
 void TestInsert()
 {
-
- ListD* lst = new ListD;
+ ListD<int>* lst = new ListD<int>;
  for (int i = 1; i <= 5; i++)
-  lst->Insert(i,i);
+  lst->Insert(i, i);
+
  lst->PrintForward();
 
  //test general case insert
@@ -45,23 +58,90 @@ void TestInsert()
  cout << "Passed Insert Test 4 if 50 appears in middle position" << endl; 
  lst->PrintForward();
  cout << endl;
- //delete lst;
+ delete lst;
 }
+
 
 void TestCopyConstructor()
 {
- ListD<T>* lst1 = new ListD<T>;
- for (int i = 1; i <= 3; i++)
-  lst1->Insert(i,i);
+  ListD<int>* lst1 = new ListD<int>;
+  for (int i = 1; i <= 3; i++)
+   lst1->Insert(i,i);
 
- ListD<T>* lst2(lst1);
+  ListD<int>* lst2(lst1);
  
- cout << "Traverse lst1" << endl;
- lst1->PrintForward();
- cout << endl;
- cout << "Traverse lst2" << endl;
- lst2->PrintForward();
+  cout << "Traverse lst1" << endl;
+  lst1->PrintForward();
+  cout << endl;
+  cout << "Traverse lst2" << endl;
+  lst2->PrintForward();
 
- //delete lst1;
- //delete lst2;
-}
+  delete lst1;
+  delete lst2;
+ }
+
+
+
+ void TestPrintBackward()
+ {
+  ListD<int>* lst1 = new ListD<int>;
+  for (int i = 1; i <= 3; i++)
+   lst1->Insert(i,i);
+ 
+  cout << "Traverse lst1 backwards" << endl;
+  lst1->PrintBackward();
+  cout << endl;
+
+  delete lst1;
+ }
+
+
+
+ void TestDeleteAll(int item)
+ {
+  ListD<int>* lst = new ListD<int>;
+  for (int i = 1; i <= 7; i++)
+   lst->Insert(i,i);
+ lst->PrintForward();
+
+  cout << "All nodes containing instances of 3 have been deleted" << endl;
+  cout << lst->DeleteAll(3);
+  cout << endl;
+  lst->PrintForward();
+  cout << endl;
+  cout << "All nodes containing instances of 4 have been deleted" << endl;
+  lst->DeleteAll(4);
+ lst->PrintForward();
+
+  delete lst;
+ }
+
+
+
+ void TestSort()
+ {
+  ListD<int>* lst1 = new ListD<int>;
+  lst1->Insert(100,1);
+  lst1->Insert(27,2);
+  lst1->Insert(98,3);
+  lst1->Insert(99,4);
+  lst1->Insert(1,5);
+  lst1->PrintForward();
+  cout << "All nodes containing instances of 3 have been deleted" << endl;
+  lst1->Sort();
+  cout << endl;
+  lst1->PrintForward();
+  delete lst1;
+ }
+
+
+
+
+
+
+
+//  Write PrintBackward.  Compile/test your work. // done
+// 2. Write Delete.  Compile/test your work.
+// 3. Write the Destructor.  Compile/test your work.
+// 4. Write DeleteAll.  Compile/test your work.
+// 5. Write Sort. Compile/test your work.
