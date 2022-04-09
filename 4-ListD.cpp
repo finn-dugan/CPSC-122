@@ -139,7 +139,21 @@ void ListD<T>::Sort()
 }
 
 template<typename T>
-int ListD<T>::DeleteAll()
+int ListD<T>::DeleteAll(T item)
 {
-
+    doubleNode<T>* cur = head;
+    int count = 0;
+    while (cur != NULL)
+    {
+    if (cur->item == item)
+    {
+    doubleNode<T>* temp = cur;
+    cur = cur->next;
+    delete temp;
+    count++;
+    }
+    else
+    cur = cur->next;
+    }
+    return count;
 }
