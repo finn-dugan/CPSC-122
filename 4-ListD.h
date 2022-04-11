@@ -3,11 +3,19 @@ Name: Finn Dugan and Louis Cerda
 Class: CPSC 122, Section 1
 Date Submitted: April 8, 2022 
 Assignment: project #12 
-Description: header file for a doubly linked list with dummy notes at head and tail
+Description: header file for a doubly linked list with dummy nodes at head and tail
 */
 
 #ifndef LIST_H
 #define LIST_H
+
+template<typename T>
+struct doubleNode
+{
+doubleNode<T>* prev;
+T item;
+doubleNode<T>* next;
+};
 
 template<typename T>
 class ListD
@@ -91,16 +99,15 @@ class ListD
    void InitializeVars(); 
 
    int length;         //length of the list
-   doubleNode* head;   //points to the first dummy node 
-   doubleNode* tail;   //points to the last dummy node  
+   doubleNode<T>* head;   //points to the first dummy node 
+   doubleNode<T>* tail;   //points to the last dummy node  
 
-   struct doubleNode
-   {
-     doubleNode<T>* prev;
-     T item;
-     doubleNode<T>* next;
-   };
+//    struct doubleNode
+//    {
+//      doubleNode<T>* prev;
+//      T item;
+//      doubleNode<T>* next;
+//    };
 };
-
 
 #endif
